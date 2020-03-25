@@ -1,0 +1,34 @@
+:root{
+    box-sizing: border-box;
+    --checker-size: 70px;
+    --column-width: 70px;
+}
+
+#red-piece{
+    border-radius: 50%;
+    background-color: red;
+    width: var(--checker-size);
+    height: var(--checker-size);
+}
+
+#black-piece{
+    border-radius: 50%;
+    background-color: black;
+    width: var(--checker-size);
+    height: var(--checker-size);
+}
+
+#board{
+    display: flex;
+    width: 490px;
+    margin: 0 auto;
+}
+
+.columns{
+    border: 1px solid black;
+    width: var(--column-width);
+    height: 420px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
