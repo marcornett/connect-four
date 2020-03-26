@@ -9,6 +9,10 @@ header{
     margin-bottom: 20px;
 }
 
+#message{
+    color: grey;
+}
+
 #pieces{
     display: none;
 }
@@ -33,13 +37,14 @@ header{
     display: flex;
     width: 490px;
     margin: 0 auto;
+    border: 2px solid black;
+
 }
 
 .columns{
-    border: 1px solid black;
+    border: 2px solid black;
     width: var(--column-width);
-    height: 420px;
+    height: 390px;
     display: flex;
     flex-direction: column-reverse;
 }
-

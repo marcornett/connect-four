@@ -28,17 +28,25 @@ function displayWhoWon(winner) {
     let gameDecision = document.querySelector('#game-decision')
     if (winner === 1){
         header.removeChild(messageDiv)
+        gameDecision.style.color = 'red'
+        gameDecision.style.fontWeight = 'bold'
         gameDecision.textContent = 'Winner is Red!'
     } else{
         header.removeChild(messageDiv)
+        gameDecision.style.color = 'black'
+        gameDecision.style.fontWeight = 'bold'
         gameDecision.textContent = 'Winner is Black!'
     }
     //erase contents of the board 
 }
 
 function displayTieMessage() {
-    displayMessage("Tie game!")
-    console.log("Tie game")
+    let header = document.querySelector('header')
+    let gameDecision = document.querySelector('#game-decision')
+    let messageDiv = document.querySelector('#message')
+    header.removeChild(messageDiv)
+    gameDecision.style.fontWeight = 'bold'
+    gameDecision.textContent = 'Tie Game!'
 }
 
 function dropDiscIntoColumn(column) {
@@ -161,6 +169,7 @@ function winnerHorizontal(board) {
                 (board[row][col] === board[row][col + 2]) &&
                 (board[row][col] === board[row][col + 3]) &&
                 (board[row][col] !== null)) {
+                console.log('horizontal win')
                 return board[row][col]
             }
         }
@@ -175,6 +184,7 @@ function winnerVertical(board) {
                 (board[row][col] === board[row + 2][col]) &&
                 (board[row][col] === board[row + 3][col]) &&
                 (board[row][col] !== null)) {
+                console.log('vertical win')    
                 return board[row][col]
             }
         }
@@ -182,26 +192,28 @@ function winnerVertical(board) {
     return null
 }
 
-function winnerDiagonalUpRight(board) {
-    for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < board[row].length; col++) {
-            if ((board[row + 3][col + 1] === board[row + 2][col + 1]) &&
-                (board[row + 3][col + 1] === board[row + 1][col + 1]) &&
-                (board[row + 3][col + 1] === board[row][col + 1]) &&
-                (board[row][col] !== null)) {
-                return board[row][col]
-            }
-        }
-    }    return null
-}
-
-function winnerDiagonalDownRight(board) {
+function winnerDiagonalDownRight  (board) {
     for (let row = 0; row < 3; row++) {
         for (let col = 0; col < board[row].length; col++) {
             if ((board[row][col] === board[row + 1][col + 1]) &&
                 (board[row][col] === board[row + 2][col + 2]) &&
                 (board[row][col] === board[row + 3][col + 3]) &&
                 (board[row][col] !== null)) {
+                console.log('diagonal up right win')
+                return board[row][col]
+            }
+        }
+    }    return null
+}
+
+function winnerDiagonalUpRight (board) {
+    for (let row = 0; row < 3; row++) {
+        for (let col = 3; col < board[row].length; col++) {
+            if ((board[row][col] === board[row + 1][col - 1]) &&
+                (board[row][col] === board[row + 2][col - 2]) &&
+                (board[row][col] === board[row + 3][col - 3]) &&
+                (board[row][col] !== null)) {
+                console.log('diagonal down right win')
                 return board[row][col]
             }
         }
