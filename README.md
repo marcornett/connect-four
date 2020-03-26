@@ -1,3 +1,5 @@
+https://marcornett.gitlab.io/assessment-connect-four/
+
 Spoke about Michelle Johnson about modifying the board based on checker piece locations
 
 # Program Plan
