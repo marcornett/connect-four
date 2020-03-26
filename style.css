@@ -1,12 +1,22 @@
 :root{
     box-sizing: border-box;
-    --checker-size: 70px;
+    --checker-size: 65px;
     --column-width: 70px;
+}
+
+header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#pieces{
+    display: none;
 }
 
 #red-piece{
     border-radius: 50%;
     background-color: red;
+    margin: 0 auto;
     width: var(--checker-size);
     height: var(--checker-size);
 }
@@ -16,6 +26,7 @@
     background-color: black;
     width: var(--checker-size);
     height: var(--checker-size);
+
 }
 
 #board{

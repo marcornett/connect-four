@@ -13,7 +13,9 @@ let numberOfDiscsPlayed = 0
 function displayMessage(message) {
     let messageDiv = document.querySelector('#message')   
     // Display the new message into message div
-    messageDiv.innerHTML = `<div>${message}</div>`
+    if(messageDiv !== null){
+        messageDiv.textContent = message
+    }
 }
 
 function displayCurrentPlayer(currPlayer) {
@@ -21,9 +23,17 @@ function displayCurrentPlayer(currPlayer) {
 }
 
 function displayWhoWon(winner) {
-    displayMessage('Winner is ' + winner)
+    let header = document.querySelector('header')
+    let messageDiv = document.querySelector('#message')
+    let gameDecision = document.querySelector('#game-decision')
+    if (winner === 1){
+        header.removeChild(messageDiv)
+        gameDecision.textContent = 'Winner is Red!'
+    } else{
+        header.removeChild(messageDiv)
+        gameDecision.textContent = 'Winner is Black!'
+    }
     //erase contents of the board 
-    console.log("someone won")
 }
 
 function displayTieMessage() {
@@ -66,7 +76,6 @@ function dropDiscIntoColumn(column) {
             numberOfDiscsPlayed++
         }
     }
-    determineGameWinner(boardModel)
 }
 
 function switchToNextPlayer() {
@@ -152,7 +161,6 @@ function winnerHorizontal(board) {
                 (board[row][col] === board[row][col + 2]) &&
                 (board[row][col] === board[row][col + 3]) &&
                 (board[row][col] !== null)) {
-                console.log(board[row][col])
                 return board[row][col]
             }
         }
@@ -167,7 +175,6 @@ function winnerVertical(board) {
                 (board[row][col] === board[row + 2][col]) &&
                 (board[row][col] === board[row + 3][col]) &&
                 (board[row][col] !== null)) {
-                console.log(board[row][col])
                 return board[row][col]
             }
         }
