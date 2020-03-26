@@ -365,3 +365,34 @@ function testWinnerDiagonalDownRight() {
 testWinnerDiagonalDownRight()
 
 
+// Randy's way of not checking the DOM and using the model
+
+// function columnIsFull (board, index){
+//     // checks the first row of the board and whatever column index you choose
+//     return board[0][index] !== null
+// }
+
+// function randyDropDiscIntoColumn(columnEl, board, playerNum) {
+//     const columnIndex = Number(columnEl.id.slice(-1))
+//     // if the column is not full...
+//     if (columnIsFull(board, index)){
+//         return
+//     }
+//     // Update the model
+//     for( let row = board.length-1; row>=0; row--){
+//         if(board[row][columnIndex] === null){
+//             board[row][columnIndex] = playerNum
+//             break
+//         }
+//     }
+//     // Update HTML
+//     let newDisc = document.createElement('div')
+//     newDisc.className = (playerNum === 1) ? 'disc pl1' : 'disc pl2'
+//     columnEl.appendChild(newDisc)
+
+//     numberOfDiscsPlayed++
+// }
+
+// function randyDisplayBoard (){
+//     // maybe this starts with white circles that changes the colors
+// }
