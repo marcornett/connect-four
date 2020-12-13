@@ -11,9 +11,8 @@ let currentPlayer = 'Red'
 let numberOfDiscsPlayed = 0
 
 function displayMessage(message) {
-    let messageDiv = document.querySelector('#message')   
-    // Display the new message into message div
-    if(messageDiv !== null){
+    let messageDiv = document.querySelector('#message')
+    if (messageDiv !== null) {
         messageDiv.textContent = message
     }
 }
@@ -26,12 +25,12 @@ function displayWhoWon(winner) {
     let header = document.querySelector('header')
     let messageDiv = document.querySelector('#message')
     let gameDecision = document.querySelector('#game-decision')
-    if (winner === 1){
+    if (winner === 1) {
         header.removeChild(messageDiv)
         gameDecision.style.color = 'red'
         gameDecision.style.fontWeight = 'bold'
         gameDecision.textContent = 'Winner is Red!'
-    } else{
+    } else {
         header.removeChild(messageDiv)
         gameDecision.style.color = 'black'
         gameDecision.style.fontWeight = 'bold'
@@ -58,54 +57,38 @@ function dropDiscIntoColumn(column) {
             return
         } else {
             if (currentPlayer === 'Red') {
-                // Select red piece
                 let redPiece = document.querySelector('#red-piece')
-                // Clone piece
                 let piecePickedUp = redPiece.cloneNode()
-                // Append to column clicked on
                 column.appendChild(piecePickedUp)
-                // Changes player to black
                 currentPlayer = 'Black'
-                // Updates the board model reflecting the discs dropped
                 let col = parseInt(column.dataset.col)
                 let row = 6 - column.childElementCount
-                boardModel[row].splice(col,1,1)
+                boardModel[row].splice(col, 1, 1)
             } else {
                 let blackPiece = document.querySelector('#black-piece')
                 let piecePickedUp = blackPiece.cloneNode()
                 column.appendChild(piecePickedUp)
                 currentPlayer = 'Red'
-                // Updates the board model reflecting the discs dropped
                 let col = parseInt(column.dataset.col)
                 let row = 6 - column.childElementCount
-                boardModel[row].splice(col,1,2)
+                boardModel[row].splice(col, 1, 2)
             }
-            // Update Disc Count
             numberOfDiscsPlayed++
         }
     }
 }
 
-function switchToNextPlayer() {
-    // currentPlayer 1 change to 2
-    // currentPlayer 2 change to 1
-}
-
 function columnClickHandler(event) {
     const columnThatWasClicked = event.currentTarget
     dropDiscIntoColumn(columnThatWasClicked)
-    // see if the game has been won or tied
     const winner = determineGameWinner(boardModel)
     if (winner !== null) {
         displayWhoWon(winner)
     } else if (gameIsATie(boardModel)) {
         displayTieMessage()
-    } else {
-        switchToNextPlayer()
     }
     displayCurrentPlayer(currentPlayer)
 }
-
 
 function determineGameWinner(board) {
     const horz = winnerHorizontal(board)
@@ -124,7 +107,6 @@ function determineGameWinner(board) {
     if (uprt !== null) {
         return uprt
     }
-    // return 1, 2, or nul (tie or game isn't over)
     return null
 }
 
@@ -139,7 +121,6 @@ function createColumnEventListeners() {
 }
 
 function initializeGame() {
-    // displayBoard(boardModel)
     createColumnEventListeners()
     displayCurrentPlayer(currentPlayer)
 }
@@ -147,7 +128,6 @@ function initializeGame() {
 initializeGame()
 
 function gameIsATie(board) {
-    // board is completely filled (numberOfDiscsPlayed is 42)
     if (numberOfDiscsPlayed === 42) {
         return true
     }
@@ -184,7 +164,7 @@ function winnerVertical(board) {
                 (board[row][col] === board[row + 2][col]) &&
                 (board[row][col] === board[row + 3][col]) &&
                 (board[row][col] !== null)) {
-                console.log('vertical win')    
+                console.log('vertical win')
                 return board[row][col]
             }
         }
@@ -192,7 +172,7 @@ function winnerVertical(board) {
     return null
 }
 
-function winnerDiagonalDownRight  (board) {
+function winnerDiagonalDownRight(board) {
     for (let row = 0; row < 3; row++) {
         for (let col = 0; col < board[row].length; col++) {
             if ((board[row][col] === board[row + 1][col + 1]) &&
@@ -203,10 +183,10 @@ function winnerDiagonalDownRight  (board) {
                 return board[row][col]
             }
         }
-    }    return null
+    } return null
 }
 
-function winnerDiagonalUpRight (board) {
+function winnerDiagonalUpRight(board) {
     for (let row = 0; row < 3; row++) {
         for (let col = 3; col < board[row].length; col++) {
             if ((board[row][col] === board[row + 1][col - 1]) &&
@@ -217,7 +197,7 @@ function winnerDiagonalUpRight (board) {
                 return board[row][col]
             }
         }
-    }    return null
+    } return null
 }
 
 function testWinnerVertical() {
@@ -232,10 +212,10 @@ function testWinnerVertical() {
     console.assert((winnerVertical([
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [   1, null, null, null, null, null, null],
-        [   1, null, null, null, null, null, null],
-        [   1, null, null, null, null, null, null],
-        [   1, null, null, null, null, null, null]
+        [1, null, null, null, null, null, null],
+        [1, null, null, null, null, null, null],
+        [1, null, null, null, null, null, null],
+        [1, null, null, null, null, null, null]
     ]) === 1), "Winner Vertical fails on col 0 player 1 win")
     console.assert((winnerVertical([
         [null, null, null, null, null, null, null],
@@ -248,10 +228,10 @@ function testWinnerVertical() {
     console.assert((winnerVertical([
         [null, null, 2, null, null, null, null],
         [null, null, 1, null, null, null, null],
-        [   2, null, 1, null, null, null, 1],
-        [   1, null, 1, null, null, null, 1],
-        [   2, null, 2, null, null, null, 1],
-        [   2, null, 2, null, null, null, 1]
+        [2, null, 1, null, null, null, 1],
+        [1, null, 1, null, null, null, 1],
+        [2, null, 2, null, null, null, 1],
+        [2, null, 2, null, null, null, 1]
     ]) === 1), "Winner Vertical fails on col 6 player 1 win")
 }
 testWinnerVertical()
@@ -268,25 +248,25 @@ function testWinnerDiagonalUpRight() {
     console.assert((winnerDiagonalUpRight([
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [null, null, null,    1, null, null, null],
-        [null, null,    1, null, null, null, null],
-        [null,    1, null, null, null, null, null],
-        [   1, null, null, null, null, null, null]
+        [null, null, null, 1, null, null, null],
+        [null, null, 1, null, null, null, null],
+        [null, 1, null, null, null, null, null],
+        [1, null, null, null, null, null, null]
     ]) === 1), "Winner Diagonal Up Right fails on (row 5, col 0) to (row 2, col 3) player 1 win")
     console.assert((winnerDiagonalUpRight([
-        [null, null, null, null, null, null,    2],
-        [null, null, null, null, null,    2, null],
-        [null, null, null, null,    2, null, null],
-        [null, null, null,    2, null, null, null],
+        [null, null, null, null, null, null, 2],
+        [null, null, null, null, null, 2, null],
+        [null, null, null, null, 2, null, null],
+        [null, null, null, 2, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
     ]) === 2), "Winner Diagonal Up Right fails on (row 3, col 3) to (row 0, col 6) player 2 win")
     console.assert((winnerDiagonalUpRight([
-        [   1,    1,    1,    2, null, null, null],
-        [null, null, null,    1,    2,    1,    1],
-        [null, null, null, null,    1, null, null],
-        [   2, null, null,    1, null,    1, null],
-        [null, null,    1, null, null, null, null],
+        [1, 1, 1, 2, null, null, null],
+        [null, null, null, 1, 2, 1, 1],
+        [null, null, null, null, 1, null, null],
+        [2, null, null, 1, null, 1, null],
+        [null, null, 1, null, null, null, null],
         [null, null, null, null, null, null, null]
     ]) === 1), "Winner Diagonal Up Right fails on (row 4, col 2) to (row 1, col 5) player 1 win")
 }
@@ -314,14 +294,14 @@ function testWinnerHorizontal() {
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [null, null, null,    2,    2,    2,    2],
+        [null, null, null, 2, 2, 2, 2],
         [null, null, null, null, null, null, null]
     ]) === 2), "Winner Horizontal fails on row 4 player 2 win")
     console.assert((winnerHorizontal([
-        [   1,    1,    1,    2, null, null, null],
-        [null, null, null,    1,    1,    1,    1],
+        [1, 1, 1, 2, null, null, null],
+        [null, null, null, 1, 1, 1, 1],
         [null, null, null, null, null, null, null],
-        [   2, null, null,    2, null, null, null],
+        [2, null, null, 2, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
     ]) === 1), "Winner Horizontal fails on row 1 player 1 win")
@@ -340,59 +320,26 @@ function testWinnerDiagonalDownRight() {
     console.assert((winnerDiagonalDownRight([
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [null, null,    1, null, null, null, null],
-        [null, null, null,    1, null, null, null],
-        [null, null, null, null,    1, null, null],
-        [null, null, null, null, null,    1, null]
+        [null, null, 1, null, null, null, null],
+        [null, null, null, 1, null, null, null],
+        [null, null, null, null, 1, null, null],
+        [null, null, null, null, null, 1, null]
     ]) === 1), "Winner Diagonal Down Right fails on (row 2, col 2) to (row 5, col 5) player 1 win")
     console.assert((winnerDiagonalDownRight([
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [null, null, null,    2, null, null, null],
-        [null, null, null, null,    2, null, null],
-        [null, null, null, null, null,    2, null],
-        [null, null, null, null, null, null,    2]
+        [null, null, null, 2, null, null, null],
+        [null, null, null, null, 2, null, null],
+        [null, null, null, null, null, 2, null],
+        [null, null, null, null, null, null, 2]
     ]) === 2), "Winner Diagonal Down Right fails on (row 2, col 3) to (row 5, col 6) player 2 win")
     console.assert((winnerDiagonalDownRight([
-        [   1,    1,    1,    2, null, null, null],
-        [null, null, null,    1,    2,    1,    1],
-        [null, null, null, null,    1, null, null],
-        [   2, null, null,    2, null,    1, null],
+        [1, 1, 1, 2, null, null, null],
+        [null, null, null, 1, 2, 1, 1],
+        [null, null, null, null, 1, null, null],
+        [2, null, null, 2, null, 1, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
     ]) === 1), "Winner Diagonal Down Right fails on (row 0, col 3) to (row 3, col 5) player 1 win")
 }
 testWinnerDiagonalDownRight()
-
-
-// Randy's way of not checking the DOM and using the model
-
-// function columnIsFull (board, index){
-//     // checks the first row of the board and whatever column index you choose
-//     return board[0][index] !== null
-// }
-
-// function randyDropDiscIntoColumn(columnEl, board, playerNum) {
-//     const columnIndex = Number(columnEl.id.slice(-1))
-//     // if the column is not full...
-//     if (columnIsFull(board, index)){
-//         return
-//     }
-//     // Update the model
-//     for( let row = board.length-1; row>=0; row--){
-//         if(board[row][columnIndex] === null){
-//             board[row][columnIndex] = playerNum
-//             break
-//         }
-//     }
-//     // Update HTML
-//     let newDisc = document.createElement('div')
-//     newDisc.className = (playerNum === 1) ? 'disc pl1' : 'disc pl2'
-//     columnEl.appendChild(newDisc)
-
-//     numberOfDiscsPlayed++
-// }
-
-// function randyDisplayBoard (){
-//     // maybe this starts with white circles that changes the colors
-// }
